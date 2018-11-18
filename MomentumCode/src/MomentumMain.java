@@ -9,7 +9,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MomentumMain {
@@ -70,15 +79,15 @@ public class MomentumMain {
         console.add(scroll);
 		console.add(consoleArea);
 
-		JLabel openFiles = new JLabel("Select a .mom file");
-		openFiles.setBounds(174, 70, 117, 25);
+		JLabel openFiles = new JLabel("Select a .mc or .txt file");
+		openFiles.setBounds(165, 70, 137, 25);
 		panel.add(openFiles);
 
 		JButton fileButton = new JButton("Open");
 		fileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser = new JFileChooser();
-				filter = new FileNameExtensionFilter(".mom files", "mom");
+				filter = new FileNameExtensionFilter(".mc or .txt files", "txt","mc");
 				chooser.setFileFilter(filter);
 				int returnedValue = chooser.showOpenDialog(panel);
 				if (returnedValue == JFileChooser.APPROVE_OPTION) {

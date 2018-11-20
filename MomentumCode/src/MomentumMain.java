@@ -120,7 +120,6 @@ public class MomentumMain extends JPanel {
 					String[] currentKeywords = currentStatement.split(" ");
 					
 					String first = currentKeywords[0];
-
 					if (first.equals("Container")) {
 						String second = currentKeywords[1];
 						if (newVariable(currentKeywords[2])) {
@@ -329,7 +328,7 @@ public class MomentumMain extends JPanel {
 		if (!printed) {
 			for (int i = 0; i < text.size(); i++) {
 				if (name.equals(text.get(i).getName())) {
-					consoleArea.append(text.get(i).getText() + " ");
+					consoleArea.append(text.get(i).getText().substring(1, text.get(i).getText().length()-1) + " ");
 					printed = true;
 				}
 			}

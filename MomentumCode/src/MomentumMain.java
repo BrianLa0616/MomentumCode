@@ -67,7 +67,6 @@ public class MomentumMain extends JPanel {
 		text = new ArrayList<Text>();
 		conds = new ArrayList<Cond>();
 		letters = new ArrayList<Letter>();
-
 		frmMomentum = new JFrame();
 		frmMomentum.setTitle("Momentum");
 		frmMomentum.setBounds(100, 100, 1100, 700);
@@ -257,7 +256,7 @@ public class MomentumMain extends JPanel {
 				}
 				try {
 					code = new Scanner(new File(fileName)).useDelimiter("\\A").next();
-					editor.append(code);
+					editor.setText(code);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}

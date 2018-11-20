@@ -118,9 +118,7 @@ public class MomentumMain extends JPanel {
 					currentStatement = currentStatement.replace("\n", "");
 
 					String[] currentKeywords = currentStatement.split(" ");
-					for (int j = 0; j < currentKeywords.length; j++) { 
-						System.out.print(currentKeywords[j]);
-					}
+					
 					String first = currentKeywords[0];
 
 					if (first.equals("Container")) {
@@ -132,7 +130,11 @@ public class MomentumMain extends JPanel {
 								}
 								numbers.add(new Number(currentKeywords[2], Double.parseDouble(currentKeywords[4])));
 							} else if (second.equals("text")) {
-								text.add(new Text(currentKeywords[2], currentKeywords[4]));
+								String txt =currentKeywords[4];
+								for (int j = 5; j < currentKeywords.length; j++) {
+									txt += " " + currentKeywords[j];
+								}
+								text.add(new Text(currentKeywords[2], txt));
 
 							} else if (second.equals("cond")) {
 								if (currentKeywords[4].equals("true")) {

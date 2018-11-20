@@ -110,6 +110,7 @@ public class MomentumMain extends JPanel {
 		
 		runButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				reset();
 				codeList = editor.getText().split(":\\)");
 
 				for (int i = 0; i < codeList.length; i++) {
@@ -349,5 +350,11 @@ public class MomentumMain extends JPanel {
 				}
 			}
 		}
+	}
+	private void reset() {
+		conds.clear();
+		text.clear();
+		numbers.clear();
+		letters.clear();
 	}
 }

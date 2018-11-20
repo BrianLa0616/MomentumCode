@@ -42,7 +42,7 @@ public class MomentumMain extends JPanel {
 	public ArrayList<Text> getText() {
 		return text;
 	}
-
+ 
 	public ArrayList<Letter> getLetters() {
 		return letters;
 	}
@@ -118,6 +118,9 @@ public class MomentumMain extends JPanel {
 					currentStatement = currentStatement.replace("\n", "");
 
 					String[] currentKeywords = currentStatement.split(" ");
+					for (int j = 0; j < currentKeywords.length; j++) { 
+						System.out.print(currentKeywords[j]);
+					}
 					String first = currentKeywords[0];
 
 					if (first.equals("Container")) {
@@ -155,19 +158,20 @@ public class MomentumMain extends JPanel {
 									isQuote = !isQuote;
 									consoleArea.append(currentKeywords[j].substring(0, currentKeywords[j].length() - 1) + " ");
 								} else {
-									consoleArea.append(currentKeywords[j]);
+									consoleArea.append(currentKeywords[j] + " ");
 								}
 							} else {
+
 								if (currentKeywords[j].charAt(0) == '"') {
 									isQuote = !isQuote;
 									if (currentKeywords[j].charAt(currentKeywords[j].length()-1) == '"') {
-										consoleArea.append(currentKeywords[j].substring(1, currentKeywords[j].length() - 2) + " ");
+										consoleArea.append(currentKeywords[j].substring(1, currentKeywords[j].length() - 1) + " ");
 										isQuote = !isQuote;
 									} else {
-										consoleArea.append(currentKeywords[j].substring(1, currentKeywords[j].length() - 1) + " ");
+										consoleArea.append(currentKeywords[j].substring(1) + " ");
 									}
 								} else {
-									printVariable(currentKeywords[j] + " ");
+									printVariable(currentKeywords[j]);
 								}
 							}
 						}
@@ -182,23 +186,27 @@ public class MomentumMain extends JPanel {
 							}
 							else if (currentKeywords[4].equals("Print")) {
 								boolean isQuote = false;
-								System.out.println(currentKeywords.length);
 								for (int j = 5; j < currentKeywords.length; j++) {
 									if (isQuote) {
 										if (currentKeywords[j].charAt(currentKeywords[j].length() - 1) == '"') {
 											isQuote = !isQuote;
-											consoleArea.append(currentKeywords[j].substring(0, currentKeywords[j].length() - 1));
+											consoleArea.append(currentKeywords[j].substring(0, currentKeywords[j].length() - 1) + " ");
 										} else {
-											consoleArea.append(currentKeywords[j]);
+											consoleArea.append(currentKeywords[j] + " ");
 										}
 									} else {			
 
 										if (currentKeywords[j].charAt(0) == '"') {
 
 											isQuote = !isQuote;
-											consoleArea.append(currentKeywords[j].substring(1, currentKeywords[j].length() - 1));
+											if (currentKeywords[j].charAt(currentKeywords[j].length()-1) == '"') {
+												consoleArea.append(currentKeywords[j].substring(1, currentKeywords[j].length() - 1) + " ");
+												isQuote = !isQuote;
+											} else {
+												consoleArea.append(currentKeywords[j].substring(1) + " ");
+											}
 										} else {
-											printVariable(currentKeywords[j]);
+											printVariable(currentKeywords[j] + " ");
 										}
 									}
 								}
@@ -249,7 +257,6 @@ public class MomentumMain extends JPanel {
 				try {
 					code = new Scanner(new File(fileName)).useDelimiter("\\A").next();
 					editor.append(code);
-					code = code.replace("\n", "");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -311,15 +318,16 @@ public class MomentumMain extends JPanel {
 	private void printVariable(String name) {
 		boolean printed = false;
 		for (int i = 0; i < conds.size(); i++) {
+
 			if (name.equals(conds.get(i).getName())) {
-				consoleArea.append(conds.get(i).getCond() + "");
+				consoleArea.append(conds.get(i).getCond() + " ");
 				printed = true;
 			}
 		}
 		if (!printed) {
 			for (int i = 0; i < text.size(); i++) {
 				if (name.equals(text.get(i).getName())) {
-					consoleArea.append(text.get(i).getText() + "");
+					consoleArea.append(text.get(i).getText() + " ");
 					printed = true;
 				}
 			}
@@ -327,8 +335,7 @@ public class MomentumMain extends JPanel {
 		if (!printed) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (name.equals(numbers.get(i).getName())) {
-					consoleArea.append(numbers.get(i).getValue() + "");
-
+					consoleArea.append(numbers.get(i).getValue() + " ");
 					printed = true;
 				}
 			}
@@ -336,7 +343,7 @@ public class MomentumMain extends JPanel {
 		if (!printed) {
 			for (int i = 0; i < letters.size(); i++) {
 				if (name.equals(letters.get(i).getName())) {
-					consoleArea.append(letters.get(i).getLetter() + "");
+					consoleArea.append(letters.get(i).getLetter() + " ");
 
 					printed = true;
 				}

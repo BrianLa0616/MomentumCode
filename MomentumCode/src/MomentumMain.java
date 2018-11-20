@@ -108,25 +108,10 @@ public class MomentumMain extends JPanel {
 
 		JButton fileButton = new JButton("Open");
 		JButton runButton = new JButton("Run");
-
-		fileButton.addActionListener(new ActionListener() {
+		
+		runButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				chooser = new JFileChooser();
-				filter = new FileNameExtensionFilter(".mc or .txt files", "txt", "mc");
-				chooser.setFileFilter(filter);
-				int returnedValue = chooser.showOpenDialog(console);
-				if (returnedValue == JFileChooser.APPROVE_OPTION) {
-					fileName = chooser.getSelectedFile().getPath();
-				}
-				try {
-					code = new Scanner(new File(fileName)).useDelimiter("\\A").next();
-					editor.append(code);
-					code = code.replace("\n", "");
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
-
-				codeList = code.split(":\\)");
+				codeList = editor.getText().split(":\\)");
 
 				for (int i = 0; i < codeList.length; i++) {
 					String currentStatement = codeList[i].replace("\r", "");
@@ -188,8 +173,6 @@ public class MomentumMain extends JPanel {
 						}
 						consoleArea.append("\n");
 					}
-					//					else if () { Change
-					//					}
 					else if (first.equals("If")) {
 						//Condition 1, 2, 3
 						boolean b = new ConditionParser(numbers).getCondition(currentKeywords[1] + " " + currentKeywords[2] + " " + currentKeywords[3]);
@@ -251,6 +234,27 @@ public class MomentumMain extends JPanel {
 						}
 					}
 				}
+			}
+		});
+
+		fileButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				chooser = new JFileChooser();
+				filter = new FileNameExtensionFilter(".mc or .txt files", "txt", "mc");
+				chooser.setFileFilter(filter);
+				int returnedValue = chooser.showOpenDialog(console);
+				if (returnedValue == JFileChooser.APPROVE_OPTION) {
+					fileName = chooser.getSelectedFile().getPath();
+				}
+				try {
+					code = new Scanner(new File(fileName)).useDelimiter("\\A").next();
+					editor.append(code);
+					code = code.replace("\n", "");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+				
 			}
 		});
 		fileButton.setBounds(21, 45, 117, 25);

@@ -356,5 +356,6 @@ public class MomentumMain extends JPanel {
 		text.clear();
 		numbers.clear();
 		letters.clear();
+		consoleArea.setText(null);
 	}
 }

@@ -107,6 +107,8 @@ public class MomentumMain extends JPanel {
 		console.add(openFiles);
 
 		JButton fileButton = new JButton("Open");
+		JButton runButton = new JButton("Run");
+
 		fileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				chooser = new JFileChooser();
@@ -253,6 +255,9 @@ public class MomentumMain extends JPanel {
 		});
 		fileButton.setBounds(21, 45, 117, 25);
 		console.add(fileButton);
+		
+		runButton.setBounds(200, 45, 117, 25);
+		console.add(runButton);
 	}
 
 	public static void main(String[] args) {

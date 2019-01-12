@@ -17,9 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import variables.Cond;
+import variables.Letter;
+import variables.Number;
+import variables.Text;
 
 public class Main extends JPanel {
 	private String fileName;
@@ -90,7 +94,7 @@ public class Main extends JPanel {
 				reset();
 
 				reset();
-				codeList = editor.getText().split(":\\)");
+				codeList = editor.getText().split("\n");
 
 				for (int i = 0; i < codeList.length; i++) {
 					currentStatement = codeList[i].replace("\r", "");
@@ -366,8 +370,9 @@ public class Main extends JPanel {
 	public void processPrint(int index) {
 		boolean isQuote = false;
 		for (int j = 1; j < ck.length; j++) {
+			System.out.println(isQuote);
 			if (isQuote) {
-				if (ck[j = index].charAt(ck[j + index].length() - 1) == '"') {
+				if (ck[j + index].charAt(ck[j + index].length() - 1) == '"') {
 					isQuote = !isQuote;
 					consoleArea.append(ck[j + index].substring(0, ck[j + index].length() - 1) + " ");
 				} else

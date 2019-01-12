@@ -1,3 +1,4 @@
+
 public class Cond extends Container {
 
 	private boolean cond;

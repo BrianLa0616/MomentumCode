@@ -1,12 +1,12 @@
 public abstract class Container {
-	private String name;
+	private String type;
 
 	public Container(String name) {
-		this.name = name;
+		type = name;
 	}
 
 	public String getName() {
-		return name;
+		return type;
 	}
 
 	public abstract String getDataType();

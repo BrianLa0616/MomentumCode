@@ -129,6 +129,8 @@ public class Main extends JPanel {
 						processChange();
 					} else if (tag.equals("If")) {
 						processIf();
+					} else if (tag.equals("Loop")) {
+						processLoop(i);
 					}
 				}
 			}
@@ -568,6 +570,41 @@ public class Main extends JPanel {
 		}
 	}
 
+	public void processLoop(int j) {
+		int times = Integer.parseInt(ck[1]);
+		int original = j;
+		for (int i = 1; i < times; i++) {
+			while (!currentStatement.equals("End")) {
+				currentStatement = codeList[j].replace("\r", "");
+				currentStatement = currentStatement.replace("\n", "");
+				ck = currentStatement.split(" ");
+
+				String tag = ck[0];
+
+				if (tag.equals("Number")) {
+					processNumber(0);
+				} else if (tag.equals("Text")) {
+					processText(0);
+				} else if (tag.equals("Letter")) {
+					processLetter(0);
+				} else if (tag.equals("Cond")) {
+					processCond(0);
+				} else if (tag.equals("Print")) {
+					processPrint(0);
+				} else if (tag.equals("Change")) {
+					processChange();
+				} else if (tag.equals("If")) {
+					processIf();
+				}
+
+				j++;
+			}
+
+			j = original;
+			currentStatement = "";
+		}
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

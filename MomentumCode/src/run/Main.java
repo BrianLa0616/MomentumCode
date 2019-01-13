@@ -156,16 +156,16 @@ public class Main extends JPanel {
 		consoleArea.setSelectionColor(c);
 		consoleArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		consoleArea.setForeground(Color.WHITE);
-
-		JScrollPane consolePane = new JScrollPane(editor, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
 		consoleArea.setBackground(c);
+		
+		scroll2 = new JScrollPane(consoleArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll2.setBounds(350, 490, 720, 135);
+		
+		console.add(scroll2);
 //		scroll = new JScrollPane(consoleArea);
 //		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 //		console.add(scroll);
-		console.add(consolePane);
-		console.add(consoleArea);
+//		console.add(consoleArea);
 
 		editor = new JTextArea(100, 100);
 		editor.setBounds(350, 50, 720, 383);
@@ -176,13 +176,15 @@ public class Main extends JPanel {
 		editor.setCursor(cursor);
 		editor.setCaretColor(Color.RED);
 		editor.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
-		JScrollPane editorPane = new JScrollPane(editor, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	
+		scroll = new JScrollPane(editor,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll.setBounds(350, 50, 720, 383);
+		
+		console.add(scroll);
 //		scroll2 = new JScrollPane(editor);
 //		scroll2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 //		console.add(scroll2);
-		console.add(editorPane, BorderLayout.EAST);
-		console.add(editor);
+//		console.add(editor);
 
 		JLabel openFiles = new JLabel("Select a .mc or .txt file or start directly");
 		JLabel t = new JLabel("programming in the editor!");

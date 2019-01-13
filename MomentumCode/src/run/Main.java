@@ -157,7 +157,7 @@ public class Main extends JPanel {
 		consoleArea.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		consoleArea.setForeground(Color.WHITE);
 		consoleArea.setBackground(c);
-		
+
 		scroll2 = new JScrollPane(consoleArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll2.setBounds(350, 490, 720, 135);
 		
@@ -604,7 +604,9 @@ public class Main extends JPanel {
 
 			}
 		}
-		return "none";
+		consoleArea.append("The variable name " + name + " does not exist\n");
+
+		return "";
 	}
 
 	public void processCond(int index) {
@@ -725,6 +727,9 @@ public class Main extends JPanel {
 					processIf();
 				} else if (tag.equals("Input")) {
 					processInput(0);
+				} else {
+					consoleArea.append("Invalid starting keyword\n");
+
 				}
 
 				j++;
@@ -828,6 +833,10 @@ public class Main extends JPanel {
 					printed = true;
 				}
 			}
+		}
+		if (!printed) {
+			consoleArea.append("The variable name " + name + " does not exist\n");
+
 		}
 	}
 

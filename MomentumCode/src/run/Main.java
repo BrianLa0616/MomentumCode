@@ -74,7 +74,7 @@ public class Main extends JPanel {
 		frmMomentum.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		JPanel console = new JPanel();
-		//		Icon icon = new ImageIcon("m.gif");
+		Icon icon = new ImageIcon("m.gif");
 		console.setBackground(c);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image image = toolkit.getImage("cursor.gif");
@@ -167,7 +167,7 @@ public class Main extends JPanel {
 		editor.setSelectionColor(c);
 		editor.setForeground(y);
 		editor.setCursor(cursor);
-		editor.setFont(new Font(Font.MONOSPACED, Font.BOLD, 12));
+		editor.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		scroll2 = new JScrollPane(editor);
 		scroll2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		console.add(scroll2);
@@ -212,7 +212,7 @@ public class Main extends JPanel {
 					} else if (tag.equals("Print")) {
 						processPrint(0);
 					} else if (tag.equals("Change")) {
-						processChange();
+						processChange(0);
 					} else if (tag.equals("If")) {
 						processIf();
 					} else if (tag.equals("Loop")) {
@@ -347,55 +347,55 @@ public class Main extends JPanel {
 		}
 	}
 
-	public void changeNumber() {
+	public void changeNumber(int index) {
 		if (ck[2].trim().equals("=")) {
 			for (int i = 0; i < numbers.size(); i++) {
-				if (numbers.get(i).getName().trim().equals(ck[1]))
-					numbers.get(i).setValue(Double.parseDouble(ck[3]));
+				if (numbers.get(i).getName().trim().equals(ck[1+index]))
+					numbers.get(i).setValue(Double.parseDouble(ck[3+index]));
 			}
 		} else if (ck[2].trim().equals("+=")) {
 			for (int i = 0; i < numbers.size(); i++) {
-				if (numbers.get(i).getName().trim().equals(ck[1]))
-					numbers.get(i).add(Double.parseDouble(ck[3]));
+				if (numbers.get(i).getName().trim().equals(ck[1+index]))
+					numbers.get(i).add(Double.parseDouble(ck[3+index]));
 			}
 		} else if (ck[2].trim().equals("-=")) {
 			for (int i = 0; i < numbers.size(); i++) {
-				if (numbers.get(i).getName().trim().equals(ck[1]))
-					numbers.get(i).subtract(Double.parseDouble(ck[3]));
+				if (numbers.get(i).getName().trim().equals(ck[1+index]))
+					numbers.get(i).subtract(Double.parseDouble(ck[3+index]));
 			}
 		} else if (ck[2].trim().equals("*=")) {
 			for (int i = 0; i < numbers.size(); i++) {
-				if (numbers.get(i).getName().trim().equals(ck[1]))
-					numbers.get(i).multiplyBy(Double.parseDouble(ck[3]));
+				if (numbers.get(i).getName().trim().equals(ck[1+index]))
+					numbers.get(i).multiplyBy(Double.parseDouble(ck[3+index]));
 			}
 		} else if (ck[2].trim().equals("/=")) {
 			for (int i = 0; i < numbers.size(); i++) {
-				if (numbers.get(i).getName().trim().equals(ck[1]))
-					numbers.get(i).divideBy(Double.parseDouble(ck[3]));
+				if (numbers.get(i).getName().trim().equals(ck[1+index]))
+					numbers.get(i).divideBy(Double.parseDouble(ck[3+index]));
 			}
 		}
 	}
 
-	public void changeCond() {
+	public void changeCond(int index) {
 		if (ck[3].equals("true")) {
 			for (int i = 0; i < conds.size(); i++) {
-				if (conds.get(i).getName().trim().equals(ck[1]))
+				if (conds.get(i).getName().trim().equals(ck[1+index]))
 					conds.get(i).setCond(true);
 			}
 		} else if (ck[3].equals("false")) {
 			for (int i = 0; i < conds.size(); i++) {
-				if (conds.get(i).getName().trim().equals(ck[1]))
+				if (conds.get(i).getName().trim().equals(ck[1+index]))
 					conds.get(i).setCond(false);
 			}
 		}
 	}
 
-	public void changeText() {
+	public void changeText(int ind) {
 		String s = "";
 		boolean isQuote = false;
 		int index = 0;
 		for (int i = 0; i < texts.size(); i++) {
-			if (texts.get(i).getName().trim().equals(ck[1])) {
+			if (texts.get(i).getName().trim().equals(ck[1+ind])) {
 				index = i;
 				if (ck[2].equals("=")) {
 					s = "";
@@ -408,7 +408,7 @@ public class Main extends JPanel {
 
 		if (isQuote) {
 			isQuote = false;
-			for (int i = 3; i < ck.length; i++) {
+			for (int i = 3 + ind; i < ck.length; i++) {
 				if (isQuote) {
 					if (ck[i].equals("")) {
 						s += (" ");
@@ -435,10 +435,10 @@ public class Main extends JPanel {
 		}
 	}
 
-	public void changeLetter() {
+	public void changeLetter(int index) {
 		for (int i = 0; i < letters.size(); i++) {
-			if (letters.get(i).getName().trim().equals(ck[1]))
-				letters.get(i).setLetter(ck[3].charAt(1));
+			if (letters.get(i).getName().trim().equals(ck[1+index]))
+				letters.get(i).setLetter(ck[3+index].charAt(1));
 		}
 	}
 
@@ -558,36 +558,36 @@ public class Main extends JPanel {
 		if (getNumberCondition(ck[1] + " " + ck[2] + " " + ck[3])) {
 			String statementTag = ck[4];
 			if (statementTag.equals("Change"))
-				processChange();
+				processChange(4);
 			else if (ck[4].equals("Print"))
 				processPrint(4);
 		}
 	}
 
-	public void processChange() {
+	public void processChange(int index) {
 		String dataType = "";
 		for (int b = 0; b < numbers.size(); b++) {
 			if (numbers.get(b).getName().trim().equals(ck[1])) {
 				dataType = "number";
-				changeNumber();
+				changeNumber(index);
 			}
 		}
 		for (int y = 0; y < conds.size(); y++) {
 			if (conds.get(y).getName().trim().equals(ck[1])) {
 				dataType = "cond";
-				changeCond();
+				changeCond(index);
 			}
 		}
 		for (int x = 0; x < texts.size(); x++) {
 			if (texts.get(x).getName().trim().equals(ck[1])) {
 				dataType = "text";
-				changeText();
+				changeText(index);
 			}
 		}
 		for (int e = 0; e < letters.size(); e++) {
 			if (letters.get(e).getName().trim().equals(ck[1])) {
 				dataType = "letter";
-				changeLetter();
+				changeLetter(index);
 			}
 		}
 	}
@@ -614,7 +614,7 @@ public class Main extends JPanel {
 				} else if (tag.equals("Print")) {
 					processPrint(0);
 				} else if (tag.equals("Change")) {
-					processChange();
+					processChange(0);
 				} else if (tag.equals("If")) {
 					processIf();
 				}

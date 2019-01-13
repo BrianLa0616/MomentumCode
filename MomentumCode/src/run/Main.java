@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -248,6 +249,8 @@ public class Main extends JPanel {
 						processIf();
 					} else if (tag.equals("Loop")) {
 						processLoop(i);
+					}  else if (tag.equals("Input")) {
+						processInput(0);
 					}
 				}
 			}
@@ -652,6 +655,8 @@ public class Main extends JPanel {
 					processChange(0);
 				} else if (tag.equals("If")) {
 					processIf();
+				} else if (tag.equals("Input")) {
+					processInput(0);
 				}
 
 				j++;
@@ -662,6 +667,22 @@ public class Main extends JPanel {
 		}
 	}
 
+	public void processInput(int index) {
+		if (ck[1 + index].equals("number")) {
+			double d = Double.parseDouble(JOptionPane.showInputDialog("Enter value for " + ck[2 + index]));
+			numbers.add(new Number(ck[2 + index], d));
+		} else if (ck[1 + index].equals("text")) {
+			String s = JOptionPane.showInputDialog("Enter value for " + ck[2 + index]);
+			texts.add(new Text(ck[2 + index], s));
+		} else if (ck[1 + index].equals("cond")) {
+			boolean b = Boolean.parseBoolean(JOptionPane.showInputDialog("Enter value for " + ck[2 + index]));
+			conds.add(new Cond(ck[2 + index], b));
+		} else if (ck[1 + index].equals("letter")) {
+			char l = JOptionPane.showInputDialog("Enter value for " + ck[2 + index]).charAt(0);
+			letters.add(new Letter(ck[2 + index], l));
+		}
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

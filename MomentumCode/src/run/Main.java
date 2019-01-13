@@ -264,55 +264,81 @@ public class Main extends JPanel {
 
 		fileButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String pathname = System.getProperty("user.dir") + "/Documents/";
 				chooser = new JFileChooser();
 				chooser.setCursor(cursor);
-				filter = new FileNameExtensionFilter(".mc or .txt files", "txt", "mc");
+				filter = new FileNameExtensionFilter(".txt or .mc files", "txt", "mc");
 				chooser.setFileFilter(filter);
 				int returnedValue = chooser.showOpenDialog(console);
 				if (returnedValue == JFileChooser.APPROVE_OPTION) {
 					fileName = chooser.getSelectedFile().getPath();
 				}
-				try {
-					code = new Scanner(new File(fileName)).useDelimiter("\\A").next();
-					editor.setText(code);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
+				if (returnedValue == JFileChooser.CANCEL_OPTION)
+			        return;
+				File file = chooser.getSelectedFile();
+			      if (file == null)
+			        return;
 
+			      pathname = file.getAbsolutePath();
+			      Scanner fileIn = null;
+			      try
+			      {
+			        fileIn = new Scanner(file);
+			      }
+			      catch (IOException ex)
+			      {
+			        System.out.println("*** Can't open file ***");
+			        return;
+			      }
+			      StringBuffer buffer = new StringBuffer((int)file.length());
+			      while (fileIn.hasNextLine()) {
+//			        buffer.append(fileIn.nextLine());
+			        editor.setText(editor.getText() + "\n" + fileIn.nextLine());
+			      }
 			}
 		});
-
+		
 		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String pathname = System.getProperty("user.dir") + "/";
-				JFileChooser fileChooser = new JFileChooser(pathname);
-				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				int result = fileChooser.showSaveDialog(null);
-				if (result == JFileChooser.CANCEL_OPTION)
-					return;
+			public void actionPerformed(ActionEvent arg0)
+		    {
+			  String pathname = System.getProperty("user.dir") + "/Documents/";
+		      JFileChooser fileChooser = new JFileChooser(pathname);
+		      
+		      fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		      
+		      int result = fileChooser.showSaveDialog(null);
+		      
+		      if (result == JFileChooser.CANCEL_OPTION)
+		        return;
 
-				File file = fileChooser.getSelectedFile();
-				if (file != null) {
-					pathname = file.getAbsolutePath();
-					PrintWriter fileOut;
-					try {
-						fileOut = new PrintWriter(new FileWriter(file));
-					} catch (IOException ex) {
-						System.out.println("*** Can't create file ***");
-						return;
-					}
-
-					fileOut.close();
-				}
-			}
-
+		      File file = fileChooser.getSelectedFile();
+		      if (file != null)
+		      {
+		        pathname = file.getAbsolutePath();
+		        PrintWriter fileOut;
+		        try
+		        {
+		          fileOut = new PrintWriter(new FileWriter(file));
+		        }
+		        catch (IOException ex)
+		        {
+		          System.out.println("*** Could Not Create File ***");
+		          return;
+		        }
+		        fileOut.print(editor.getText());
+		        fileOut.close();
+		      }
+		    }
+			
+			
+			
 		});
 		fileButton.setBounds(15, 55, 150, 25);
 		console.add(fileButton);
-
+		
 		saveButton.setBounds(180, 55, 150, 25);
 		console.add(saveButton);
-
+		
 		runButton.setBounds(349, 25, 117, 20);
 		runButton.setForeground(new Color(87, 182, 65));
 		console.add(runButton);

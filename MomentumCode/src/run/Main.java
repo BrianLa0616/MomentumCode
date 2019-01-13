@@ -35,7 +35,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import API.PokemonIntro;
+import API.APIPanel;
 import variables.Number;
 import variables.Cond;
 import variables.Letter;
@@ -103,7 +103,7 @@ public class Main extends JPanel {
 
 		JPanel console = new JPanel();
 
-		PokemonIntro panel = new PokemonIntro();
+		APIPanel panel = new APIPanel();
 
 		console.add(panel);
 		panel.setBounds(15, 85, 320, 540);

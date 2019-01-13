@@ -74,7 +74,7 @@ public class Main extends JPanel {
 		frmMomentum.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		JPanel console = new JPanel();
-		Icon icon = new ImageIcon("m.gif");
+//		Icon icon = new ImageIcon("m.gif");
 		console.setBackground(c);
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image image = toolkit.getImage("cursor.gif");
@@ -207,8 +207,24 @@ public class Main extends JPanel {
 					currentStatement = codeList[i].replace("\r", "");
 					currentStatement = currentStatement.replace("\n", "");
 
-					ck = currentStatement.split(" ");
+					String[] temp = currentStatement.split(" ");
+					
+					int numWords = 0;
+					for (int j = 0; j < temp.length; j++) {
+						if (!temp[j].equals("")) {
+							numWords++;
+						}
+					}
 
+					ck = new String[numWords];
+					
+					numWords = 0;
+					for (int j = 0; j < temp.length; j++) {
+						if (!temp[j].equals("")) {
+							ck[numWords] = temp[j];
+							numWords++;
+						}
+					}
 					String tag = ck[0];
 
 					if (tag.equals("Number")) {

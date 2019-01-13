@@ -290,6 +290,7 @@ public class Main extends JPanel {
 			        System.out.println("*** Can't open file ***");
 			        return;
 			      }
+			      editor.setText(null);
 			      StringBuffer buffer = new StringBuffer((int)file.length());
 			      while (fileIn.hasNextLine()) {
 //			        buffer.append(fileIn.nextLine());
@@ -443,7 +444,6 @@ public class Main extends JPanel {
 	}
 
 	public void changeNumber(int index) {
-		System.out.println(index);
 		if (ck[2 + index].trim().equals("=")) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (numbers.get(i).getName().trim().equals(ck[1 + index]))

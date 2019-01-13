@@ -116,6 +116,30 @@ public class Main extends JPanel {
 		Cursor cur = toolk.createCustomCursor(im, new Point(console.getX(), console.getY()), "img");
 		panel.setCursor(cur);
 
+		JLabel APILeft = new JLabel("");
+		APILeft.setBounds(14, 85, 1, 541);
+		APILeft.setBackground(Color.WHITE);
+		APILeft.setOpaque(true);
+		console.add(APILeft);
+		
+		JLabel APITop = new JLabel("");
+		APITop.setBounds(15, 84, 321, 1);
+		APITop.setBackground(Color.WHITE);
+		APITop.setOpaque(true);
+		console.add(APITop);
+		
+		JLabel APIRight = new JLabel("");
+		APIRight.setBounds(336, 85, 1, 541);
+		APIRight.setBackground(Color.WHITE);
+		APIRight.setOpaque(true);
+		console.add(APIRight);
+		
+		JLabel APIBottom = new JLabel("");
+		APIBottom.setBounds(14, 626, 322, 1);
+		APIBottom.setBackground(Color.WHITE);
+		APIBottom.setOpaque(true);
+		console.add(APIBottom);
+		
 		console.setBackground(new Color(30, 30, 30));
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Image image = tk.getImage("purplecursor.gif");
@@ -288,6 +312,13 @@ public class Main extends JPanel {
 						processLoop(i + 1);
 					} else if (tag.equals("Input")) {
 						processInput(0);
+					} else {
+						if (!tag.equals("End")) {
+							if (consoleArea.getText() != null)
+								consoleArea.append("\n");
+							consoleArea.append(currentStatement + " : Invalid Starting Keyword\n\n");
+
+						}
 					}
 				}
 			}
@@ -418,8 +449,13 @@ public class Main extends JPanel {
 		} else if (cond.contains("!=")) {
 			op = "!=";
 			opNum = 6;
+		} else {
+			if (consoleArea.getText() != null)
+				consoleArea.append("\n");
+			consoleArea.append(currentStatement + " : Invalid If Statement\n\n");
+			
 		}
-
+ 
 		String s1 = cond.substring(0, cond.indexOf(op)).trim(),
 				s2 = cond.substring(cond.indexOf(op) + op.length()).trim();
 		boolean s1hardCoded = true, s2hardCoded = true;
@@ -497,6 +533,11 @@ public class Main extends JPanel {
 				if (numbers.get(i).getName().trim().equals(ck[1 + index]))
 					numbers.get(i).divideBy(Double.parseDouble(ck[3 + index]));
 			}
+		} else {
+			if (consoleArea.getText() != null)
+				consoleArea.append("\n");
+			consoleArea.append(currentStatement + " : Invalid Change Statement\n\n");
+
 		}
 	}
 
@@ -511,6 +552,11 @@ public class Main extends JPanel {
 				if (conds.get(i).getName().trim().equals(ck[1 + index]))
 					conds.get(i).setCond(false);
 			}
+		} else {
+			if (consoleArea.getText() != null)
+				consoleArea.append("\n");
+			consoleArea.append(currentStatement + " : Invalid Change Statement\n\n");
+
 		}
 	}
 
@@ -525,6 +571,11 @@ public class Main extends JPanel {
 					s = "";
 				} else if (ck[2 + ind].equals("+=")) {
 					s = texts.get(i).getText();
+				} else {
+					if (consoleArea.getText() != null)
+						consoleArea.append("\n");
+					consoleArea.append(currentStatement + " : Invalid Change Statement\n\n");
+
 				}
 				isQuote = true;
 			}
@@ -561,8 +612,14 @@ public class Main extends JPanel {
 
 	public void changeLetter(int index) {
 		for (int i = 0; i < letters.size(); i++) {
-			if (letters.get(i).getName().trim().equals(ck[1 + index]))
+			if (letters.get(i).getName().trim().equals(ck[1 + index])) {
 				letters.get(i).setLetter(ck[3 + index].charAt(1));
+			} else {
+				if (consoleArea.getText() != null)
+					consoleArea.append("\n");
+				consoleArea.append(currentStatement + " : Invalid Change Statement\n\n");
+
+			}
 		}
 	}
 
@@ -632,7 +689,7 @@ public class Main extends JPanel {
 
 			}
 		}
-		if (consoleArea != null)
+		if (consoleArea.getText() != null)
 			consoleArea.append("\n");
 		consoleArea.append(currentStatement + " : The variable name " + name + " does not exist\n\n");
 
@@ -789,7 +846,7 @@ public class Main extends JPanel {
 				} else {
 					if (consoleArea != null)
 						consoleArea.append("\n");
-					consoleArea.append(currentStatement + " : Invalid starting keyword\n\n");
+					consoleArea.append(currentStatement + " : Invalid Starting Keyword\n\n");
 
 				}
 

@@ -604,7 +604,8 @@ public class Main extends JPanel {
 
 			}
 		}
-		consoleArea.append("The variable name " + name + " does not exist\n");
+		if (consoleArea != null) consoleArea.append("\n");
+		consoleArea.append(currentStatement + " : The variable name " + name + " does not exist\n\n");
 
 		return "";
 	}
@@ -728,7 +729,8 @@ public class Main extends JPanel {
 				} else if (tag.equals("Input")) {
 					processInput(0);
 				} else {
-					consoleArea.append("Invalid starting keyword\n");
+					if (consoleArea != null) consoleArea.append("\n");
+					consoleArea.append(currentStatement + " : Invalid starting keyword\n\n");
 
 				}
 
@@ -794,7 +796,10 @@ public class Main extends JPanel {
 		}
 
 		if (!newVar) {
-			consoleArea.append("The variable name " + name + " is already being used \n");
+			if (!consoleArea.equals(null)) {
+				consoleArea.append("\n");
+			}
+			consoleArea.append(currentStatement + " : The variable name " + name + " is already being used \n\n");
 
 		}
 		return newVar;
@@ -835,7 +840,8 @@ public class Main extends JPanel {
 			}
 		}
 		if (!printed) {
-			consoleArea.append("The variable name " + name + " does not exist\n");
+			if (consoleArea != null) consoleArea.append("\n");
+			consoleArea.append(currentStatement + " : The variable name " + name + " does not exist\n\n");
 
 		}
 	}

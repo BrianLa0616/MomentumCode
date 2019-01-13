@@ -108,10 +108,11 @@ public class Main extends JPanel {
 
 					ck = currentStatement.split(" ");
 
+					/*
 					for (int j = 0; j < ck.length; j++) {
 						System.out.println(ck[j]);
 					}
-
+					 */
 					String tag = ck[0];
 
 					if (tag.equals("Number")) {
@@ -339,48 +340,67 @@ public class Main extends JPanel {
 		//				}
 		//			}
 		//		}
-
+		/*
+		String s;
+		boolean isQuote = false;
 		if (ck[2].trim().equals("=")) {
 			for (int i = 0; i < texts.size(); i++) {
 				if (texts.get(i).getName().trim().equals(ck[1])) {
-					String s = "";
-					boolean isQuote = false;
+					s = "";
 
-					for (int j = 1; j < ck.length; j++) {
-						if (isQuote) {
-							if (ck[j].equals("")) {
-								s +=" ";
-							} else if (ck[j].charAt(ck[j].length() - 1) == '"') {
-								isQuote = !isQuote;
-								s +=ck[j].substring(0, ck[j].length() - 1);
-							} else
-								s+=(ck[j]);
-						} else {
-							if (!ck[j].equals("") && ck[j].charAt(0) == '"') {
-								isQuote = !isQuote;
-								if (ck[j].charAt(ck[j].length() - 1) == '"' && ck[j].length() != 1) {
-									s +=(ck[j].substring(1, ck[j].length() - 1) + " ");
-									isQuote = !isQuote;
-								} else
-									s += (ck[j].substring(1) + " ");
-							} else {
-
-								s += getVariable(ck[j]);
-							}
-						}
-					}
-
-					texts.get(i).setText(s);
-				}
-			}
 		} else if (ck[2].trim().equals("+=")) {
 			for (int i = 0; i < texts.size(); i++) {
 				if (texts.get(i).getName().trim().equals(ck[1])) {
 					System.out.println(texts.get(i).getText());
-					texts.get(i).setText(texts.get(i).getText() + currentStatement
-							.substring(currentStatement.indexOf("\""), currentStatement.lastIndexOf("\"") + 1));
+					texts.get(i).setText(texts.get(i).getText() + currentStatement.substring(currentStatement.indexOf("\""), currentStatement.lastIndexOf("\"") + 1));
 				}
 			}
+		}
+
+
+		 */
+
+		String s = "";
+		boolean isQuote = false;
+		int index = 0;
+		for (int i = 0; i < texts.size(); i++) {
+			if (texts.get(i).getName().trim().equals(ck[1])) {
+				index = i;
+				if (ck[2].equals("=")) {
+					s = "";
+				} else if (ck[2].equals("+=")) {
+					s = texts.get(i).getText();
+				}
+				isQuote =true;
+			}
+		}
+
+		if (isQuote) {
+			isQuote = false;
+			for (int i = 3; i < ck.length; i++) {
+				if (isQuote) {
+					if (ck[i].equals("")) {
+						s += (" ");
+					} else if (ck[i].charAt(ck[i].length() - 1) == '"') {
+						isQuote = !isQuote;
+						s += (ck[i].substring(0, ck[i].length() - 1) + "");
+					} else
+						s += (ck[i] + " ");
+				} else {
+
+					if (!ck[i].equals("") && ck[i].charAt(0) == '"') {
+						isQuote = !isQuote;
+						if (ck[i].charAt(ck[i].length() - 1) == '"' && ck[i].length() != 1) {
+							s += (ck[i].substring(1, ck[i].length() - 1) + "");
+							isQuote = !isQuote;
+						} else
+							s += (ck[i].substring(1) + " ");
+					} else
+						s += getVariable(ck[i]);
+				}
+
+			}
+			texts.get(index).setText(s);
 		}
 	}
 
@@ -441,7 +461,7 @@ public class Main extends JPanel {
 						txt += (" ");
 					} else if (ck[i].charAt(ck[i].length() - 1) == '"') {
 						isQuote = !isQuote;
-						txt += (ck[i].substring(0, ck[i].length() - 1) + " ");
+						txt += (ck[i].substring(0, ck[i].length() - 1) + "");
 					} else
 						txt += (ck[i] + " ");
 				} else {
@@ -653,7 +673,7 @@ public class Main extends JPanel {
 
 			}
 		}
-		return "none";
+		return "";
 	}
 	private void reset() {
 		conds.clear();

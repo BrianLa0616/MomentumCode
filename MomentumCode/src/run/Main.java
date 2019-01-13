@@ -201,13 +201,14 @@ public class Main extends JPanel {
 				reset();
 
 				reset();
+				
 				codeList = editor.getText().split("\n");
 
 				for (int i = 0; i < codeList.length; i++) {
 					currentStatement = codeList[i].replace("\r", "");
 					currentStatement = currentStatement.replace("\n", "");
 
-					String[] temp = currentStatement.split(" ");
+					String[] temp = currentStatement.split("\\s");
 					
 					int numWords = 0;
 					for (int j = 0; j < temp.length; j++) {
@@ -224,6 +225,10 @@ public class Main extends JPanel {
 							ck[numWords] = temp[j];
 							numWords++;
 						}
+					}
+					
+					if (numWords == 0) {
+						continue;
 					}
 					String tag = ck[0];
 

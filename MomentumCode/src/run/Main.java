@@ -348,27 +348,28 @@ public class Main extends JPanel {
 	}
 
 	public void changeNumber(int index) {
-		if (ck[2].trim().equals("=")) {
+		System.out.println(index);
+		if (ck[2  + index].trim().equals("=")) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (numbers.get(i).getName().trim().equals(ck[1+index]))
 					numbers.get(i).setValue(Double.parseDouble(ck[3+index]));
 			}
-		} else if (ck[2].trim().equals("+=")) {
+		} else if (ck[2 + index].trim().equals("+=")) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (numbers.get(i).getName().trim().equals(ck[1+index]))
 					numbers.get(i).add(Double.parseDouble(ck[3+index]));
 			}
-		} else if (ck[2].trim().equals("-=")) {
+		} else if (ck[2 + index].trim().equals("-=")) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (numbers.get(i).getName().trim().equals(ck[1+index]))
 					numbers.get(i).subtract(Double.parseDouble(ck[3+index]));
 			}
-		} else if (ck[2].trim().equals("*=")) {
+		} else if (ck[2 + index].trim().equals("*=")) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (numbers.get(i).getName().trim().equals(ck[1+index]))
 					numbers.get(i).multiplyBy(Double.parseDouble(ck[3+index]));
 			}
-		} else if (ck[2].trim().equals("/=")) {
+		} else if (ck[2 + index].trim().equals("/=")) {
 			for (int i = 0; i < numbers.size(); i++) {
 				if (numbers.get(i).getName().trim().equals(ck[1+index]))
 					numbers.get(i).divideBy(Double.parseDouble(ck[3+index]));
@@ -377,12 +378,12 @@ public class Main extends JPanel {
 	}
 
 	public void changeCond(int index) {
-		if (ck[3].equals("true")) {
+		if (ck[3 + index].equals("true")) {
 			for (int i = 0; i < conds.size(); i++) {
 				if (conds.get(i).getName().trim().equals(ck[1+index]))
 					conds.get(i).setCond(true);
 			}
-		} else if (ck[3].equals("false")) {
+		} else if (ck[3 + index].equals("false")) {
 			for (int i = 0; i < conds.size(); i++) {
 				if (conds.get(i).getName().trim().equals(ck[1+index]))
 					conds.get(i).setCond(false);
@@ -397,9 +398,9 @@ public class Main extends JPanel {
 		for (int i = 0; i < texts.size(); i++) {
 			if (texts.get(i).getName().trim().equals(ck[1+ind])) {
 				index = i;
-				if (ck[2].equals("=")) {
+				if (ck[2 + ind].equals("=")) {
 					s = "";
-				} else if (ck[2].equals("+=")) {
+				} else if (ck[2 + ind].equals("+=")) {
 					s = texts.get(i).getText();
 				}
 				isQuote = true;
@@ -557,35 +558,37 @@ public class Main extends JPanel {
 	public void processIf() {
 		if (getNumberCondition(ck[1] + " " + ck[2] + " " + ck[3])) {
 			String statementTag = ck[4];
-			if (statementTag.equals("Change"))
+			if (statementTag.equals("Change")) {
 				processChange(4);
-			else if (ck[4].equals("Print"))
+			}
+			else if (ck[4].equals("Print")) {
 				processPrint(4);
+			}
 		}
 	}
 
 	public void processChange(int index) {
 		String dataType = "";
 		for (int b = 0; b < numbers.size(); b++) {
-			if (numbers.get(b).getName().trim().equals(ck[1])) {
+			if (numbers.get(b).getName().trim().equals(ck[1 + index])) {
 				dataType = "number";
 				changeNumber(index);
 			}
 		}
 		for (int y = 0; y < conds.size(); y++) {
-			if (conds.get(y).getName().trim().equals(ck[1])) {
+			if (conds.get(y).getName().trim().equals(ck[1 + index])) {
 				dataType = "cond";
 				changeCond(index);
 			}
 		}
 		for (int x = 0; x < texts.size(); x++) {
-			if (texts.get(x).getName().trim().equals(ck[1])) {
+			if (texts.get(x).getName().trim().equals(ck[1 + index])) {
 				dataType = "text";
 				changeText(index);
 			}
 		}
 		for (int e = 0; e < letters.size(); e++) {
-			if (letters.get(e).getName().trim().equals(ck[1])) {
+			if (letters.get(e).getName().trim().equals(ck[1 + index])) {
 				dataType = "letter";
 				changeLetter(index);
 			}
